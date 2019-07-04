@@ -7,13 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4281C53E22CCBBD100242976 /* ValidateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4281C53322CCBBD100242976 /* ValidateTextField.swift */; };
+		4281C54822CCCBE900242976 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4281C54722CCCBE900242976 /* Colors.swift */; };
+		4281C54B22CCD34800242976 /* ValidateTextFieldConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4281C54A22CCD34800242976 /* ValidateTextFieldConfiguration.swift */; };
+		4281C54D22CCDF1600242976 /* ValidateTextField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42D7D2EE22CCA7FB0095A9A8 /* ValidateTextField.framework */; };
+		42D57D3922CE26C700C7D642 /* ValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D57D3822CE26C700C7D642 /* ValidationResult.swift */; };
 		42D7D2F322CCA7FB0095A9A8 /* ValidateTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D7D2F122CCA7FB0095A9A8 /* ValidateTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42D7D30022CCA8100095A9A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D7D2FF22CCA8100095A9A8 /* AppDelegate.swift */; };
+		42D7D30222CCA8100095A9A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D7D30122CCA8100095A9A8 /* SceneDelegate.swift */; };
+		42D7D30422CCA8100095A9A8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D7D30322CCA8100095A9A8 /* ViewController.swift */; };
+		42D7D30722CCA8100095A9A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42D7D30522CCA8100095A9A8 /* Main.storyboard */; };
+		42D7D30922CCA8120095A9A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42D7D30822CCA8120095A9A8 /* Assets.xcassets */; };
+		42D7D30C22CCA8120095A9A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42D7D30A22CCA8120095A9A8 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4281C54E22CCDF1A00242976 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42D7D2E522CCA7FB0095A9A8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 42D7D2ED22CCA7FB0095A9A8;
+			remoteInfo = ValidateTextField;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		4281C53322CCBBD100242976 /* ValidateTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidateTextField.swift; sourceTree = "<group>"; };
+		4281C54722CCCBE900242976 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		4281C54A22CCD34800242976 /* ValidateTextFieldConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateTextFieldConfiguration.swift; sourceTree = "<group>"; };
+		42D57D3822CE26C700C7D642 /* ValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationResult.swift; sourceTree = "<group>"; };
 		42D7D2EE22CCA7FB0095A9A8 /* ValidateTextField.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ValidateTextField.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42D7D2F122CCA7FB0095A9A8 /* ValidateTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValidateTextField.h; sourceTree = "<group>"; };
 		42D7D2F222CCA7FB0095A9A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42D7D2FD22CCA8100095A9A8 /* ExampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		42D7D2FF22CCA8100095A9A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		42D7D30122CCA8100095A9A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		42D7D30322CCA8100095A9A8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		42D7D30622CCA8100095A9A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		42D7D30822CCA8120095A9A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		42D7D30B22CCA8120095A9A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		42D7D30D22CCA8120095A9A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -24,14 +57,56 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		42D7D2FA22CCA8100095A9A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4281C54D22CCDF1600242976 /* ValidateTextField.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4281C53122CCBBD100242976 /* ValidateTextField */ = {
+			isa = PBXGroup;
+			children = (
+				4281C53322CCBBD100242976 /* ValidateTextField.swift */,
+				4281C54A22CCD34800242976 /* ValidateTextFieldConfiguration.swift */,
+			);
+			path = ValidateTextField;
+			sourceTree = "<group>";
+		};
+		4281C54622CCCBDE00242976 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				4281C54722CCCBE900242976 /* Colors.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		4281C54C22CCDF1600242976 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		42D57D3722CE26B700C7D642 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				42D57D3822CE26C700C7D642 /* ValidationResult.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		42D7D2E422CCA7FB0095A9A8 = {
 			isa = PBXGroup;
 			children = (
 				42D7D2F022CCA7FB0095A9A8 /* ValidateTextField */,
+				42D7D2FE22CCA8100095A9A8 /* ExampleProject */,
 				42D7D2EF22CCA7FB0095A9A8 /* Products */,
+				4281C54C22CCDF1600242976 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -39,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				42D7D2EE22CCA7FB0095A9A8 /* ValidateTextField.framework */,
+				42D7D2FD22CCA8100095A9A8 /* ExampleProject.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -46,10 +122,27 @@
 		42D7D2F022CCA7FB0095A9A8 /* ValidateTextField */ = {
 			isa = PBXGroup;
 			children = (
+				42D57D3722CE26B700C7D642 /* Models */,
+				4281C54622CCCBDE00242976 /* Colors */,
+				4281C53122CCBBD100242976 /* ValidateTextField */,
 				42D7D2F122CCA7FB0095A9A8 /* ValidateTextField.h */,
 				42D7D2F222CCA7FB0095A9A8 /* Info.plist */,
 			);
 			path = ValidateTextField;
+			sourceTree = "<group>";
+		};
+		42D7D2FE22CCA8100095A9A8 /* ExampleProject */ = {
+			isa = PBXGroup;
+			children = (
+				42D7D2FF22CCA8100095A9A8 /* AppDelegate.swift */,
+				42D7D30122CCA8100095A9A8 /* SceneDelegate.swift */,
+				42D7D30322CCA8100095A9A8 /* ViewController.swift */,
+				42D7D30522CCA8100095A9A8 /* Main.storyboard */,
+				42D7D30822CCA8120095A9A8 /* Assets.xcassets */,
+				42D7D30A22CCA8120095A9A8 /* LaunchScreen.storyboard */,
+				42D7D30D22CCA8120095A9A8 /* Info.plist */,
+			);
+			path = ExampleProject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -84,16 +177,38 @@
 			productReference = 42D7D2EE22CCA7FB0095A9A8 /* ValidateTextField.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		42D7D2FC22CCA8100095A9A8 /* ExampleProject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42D7D30E22CCA8120095A9A8 /* Build configuration list for PBXNativeTarget "ExampleProject" */;
+			buildPhases = (
+				42D7D2F922CCA8100095A9A8 /* Sources */,
+				42D7D2FA22CCA8100095A9A8 /* Frameworks */,
+				42D7D2FB22CCA8100095A9A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4281C54F22CCDF1A00242976 /* PBXTargetDependency */,
+			);
+			name = ExampleProject;
+			productName = ExampleProject;
+			productReference = 42D7D2FD22CCA8100095A9A8 /* ExampleProject.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		42D7D2E522CCA7FB0095A9A8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = Nodes;
 				TargetAttributes = {
 					42D7D2ED22CCA7FB0095A9A8 = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					42D7D2FC22CCA8100095A9A8 = {
 						CreatedOnToolsVersion = 11.0;
 					};
 				};
@@ -112,6 +227,7 @@
 			projectRoot = "";
 			targets = (
 				42D7D2ED22CCA7FB0095A9A8 /* ValidateTextField */,
+				42D7D2FC22CCA8100095A9A8 /* ExampleProject */,
 			);
 		};
 /* End PBXProject section */
@@ -124,6 +240,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		42D7D2FB22CCA8100095A9A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42D7D30C22CCA8120095A9A8 /* LaunchScreen.storyboard in Resources */,
+				42D7D30922CCA8120095A9A8 /* Assets.xcassets in Resources */,
+				42D7D30722CCA8100095A9A8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -131,10 +257,51 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4281C54B22CCD34800242976 /* ValidateTextFieldConfiguration.swift in Sources */,
+				42D57D3922CE26C700C7D642 /* ValidationResult.swift in Sources */,
+				4281C53E22CCBBD100242976 /* ValidateTextField.swift in Sources */,
+				4281C54822CCCBE900242976 /* Colors.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42D7D2F922CCA8100095A9A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42D7D30422CCA8100095A9A8 /* ViewController.swift in Sources */,
+				42D7D30022CCA8100095A9A8 /* AppDelegate.swift in Sources */,
+				42D7D30222CCA8100095A9A8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4281C54F22CCDF1A00242976 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 42D7D2ED22CCA7FB0095A9A8 /* ValidateTextField */;
+			targetProxy = 4281C54E22CCDF1A00242976 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		42D7D30522CCA8100095A9A8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				42D7D30622CCA8100095A9A8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		42D7D30A22CCA8120095A9A8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				42D7D30B22CCA8120095A9A8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		42D7D2F422CCA7FB0095A9A8 /* Debug */ = {
@@ -188,7 +355,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -245,7 +412,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -305,6 +472,44 @@
 			};
 			name = Release;
 		};
+		42D7D30F22CCA8120095A9A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M92A6H7EPZ;
+				INFOPLIST_FILE = ExampleProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nodesagency.ExampleProject;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		42D7D31022CCA8120095A9A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M92A6H7EPZ;
+				INFOPLIST_FILE = ExampleProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nodesagency.ExampleProject;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -322,6 +527,15 @@
 			buildConfigurations = (
 				42D7D2F722CCA7FB0095A9A8 /* Debug */,
 				42D7D2F822CCA7FB0095A9A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42D7D30E22CCA8120095A9A8 /* Build configuration list for PBXNativeTarget "ExampleProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42D7D30F22CCA8120095A9A8 /* Debug */,
+				42D7D31022CCA8120095A9A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
