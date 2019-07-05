@@ -9,31 +9,19 @@ public extension ValidateTextField {
     }
     
     enum AssistiveViewPosition {
-        case none 
-        case outsideField(verticalAllignment: OFVerticalAlligment,
-            horizontalAlligment: OFHorizontalAlligment)
-        case insideField(verticalAllignment: IFVerticalAlligment,
-            horizontalAlligment: IFHorizontalAlligment)
+        case none
+        case outsideField(verticalAllignment: OFVerticalAlligment)
+        case insideField(verticalAllignment: IFVerticalAlligment)
         
         public enum OFVerticalAlligment {
             case above
             case below
         }
         
-        public enum OFHorizontalAlligment {
-            case left
-            case center
-            case right
-        }
-        
         public enum IFVerticalAlligment {
             case top
             case center
             case bottom
-        }
-        
-        public enum IFHorizontalAlligment {
-            case right
         }
     }
 }
@@ -70,11 +58,18 @@ public extension ValidateTextField {
             // error
             case errorTextColor
             case errorTextFont
+            case errorBackgroundColor
 
             // assitive
-            case assistiveTextColor
+            case assistiveInFocusTextColor
+            case assistiveOffFocusTextColor
             case assistiveTextFont
             case assistiveText
+            case assistiveTextAllignment
+            case assistiveBackgroundColor
+            
+            case assistiveCornerRadius
+            case assistivePossition
             
             // layer and positioning
             case contentMargins

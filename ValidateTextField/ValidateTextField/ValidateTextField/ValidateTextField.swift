@@ -15,14 +15,17 @@ public class ValidateTextField: UIView {
     
     // MARK: - Views -
     
+    private var containerView: UIView!
     private var horizontalContainerStackView: UIStackView!
     private var verticalFieldsContainerStackView: UIStackView!
     private var headerLabel: UILabel!
     private var textField: UITextField!
-    private var assistiveLabelContainer: UIView!
-    private var assistiveLabel: UILabel!
+    private var assistiveContainer: UIView?
+    private var assistiveLabel: UILabel?
     
     // MARK: - Properties -
+    
+    private var containerBackgroundColor: UIColor!
     
     // MARK: Header
     
@@ -48,13 +51,18 @@ public class ValidateTextField: UIView {
     
     // MARK: Assistive
     
-    private var assistiveTextColor: UIColor!
+    private var assistiveOffFocusTextColor: UIColor!
+    private var assistiveInFocusTextColor: UIColor!
+    private var assistiveBackgroundColor: UIColor!
     private var assistiveTextFont: UIFont!
     private var assistiveText: String?
+    private var assistivePossition: AssistiveViewPosition!
+    private var assistiveCornerRadius: CGFloat!
     
     // MARK: Error
     
     private var errorTextColor: UIColor!
+    private var errorBackgroundColor: UIColor!
     private var errorTextFont: UIFont!
     private var errorText: String?
     
@@ -66,12 +74,13 @@ public class ValidateTextField: UIView {
     private var borderWidth: CGFloat!
     private var borderOffFocusColor: UIColor!
     private var borderInFocusColor: UIColor!
+    private var errorBorderColor: UIColor!
     
     // MARK: Internal Functionality Related Properties
     
     private var state: State = .normal {
         didSet {
-            adjustUI()
+            adjustUIAppearance()
         }
     }
     
@@ -90,7 +99,14 @@ public class ValidateTextField: UIView {
                 textFieldRightView = nil
             } else if newValue != nil {
                 textFieldRightView = newValue
-                horizontalContainerStackView.addArrangedSubview(newValue!)
+                
+                // insert the right view to be the second to last view in the hierarch if there is an assistiveContainer
+                if assistiveContainer != nil {
+                    horizontalContainerStackView.insertArrangedSubview(newValue!,
+                                                                       at: horizontalContainerStackView.arrangedSubviews.count - 1)
+                } else {
+                    horizontalContainerStackView.addArrangedSubview(newValue!)
+                }
             }
         }
     }
@@ -129,6 +145,86 @@ public class ValidateTextField: UIView {
         }
     }
     
+    public var clearsOnInsertion: Bool {
+        get {
+            return textField.clearsOnInsertion
+        }
+        
+        set {
+            textField.clearsOnInsertion = newValue
+        }
+    }
+    
+    public var clearsOnBeginEditing: Bool {
+        get {
+            return textField.clearsOnBeginEditing
+        }
+        
+        set {
+            textField.clearsOnBeginEditing = newValue
+        }
+    }
+    
+    public var autocapitalizationType: UITextAutocapitalizationType {
+        get {
+            return textField.autocapitalizationType
+        }
+        
+        set {
+            textField.autocapitalizationType = newValue
+        }
+    }
+    
+    public var adjustsFontSizeToFitWidth: Bool {
+        get {
+            return textField.adjustsFontSizeToFitWidth
+        }
+        
+        set {
+            textField.adjustsFontSizeToFitWidth = newValue
+        }
+    }
+    
+    public var adjustsFontForContentSizeCategory: Bool {
+        get {
+            return textField.adjustsFontForContentSizeCategory
+        }
+        
+        set {
+            textField.adjustsFontForContentSizeCategory = newValue
+        }
+    }
+    
+    public var keyboardType: UIKeyboardType  {
+        get {
+            return textField.keyboardType
+        }
+        
+        set {
+            textField.keyboardType = newValue
+        }
+    }
+    
+    public var keyboardAppearance: UIKeyboardAppearance  {
+        get {
+            return textField.keyboardAppearance
+        }
+        
+        set {
+            textField.keyboardAppearance = newValue
+        }
+    }
+    
+    public var returnKeyType: UIReturnKeyType  {
+        get {
+            return textField.returnKeyType
+        }
+        
+        set {
+            textField.returnKeyType = newValue
+        }
+    }
+    
     public var textContentType: ContentType {
         get {
             return textFieldContentType
@@ -144,7 +240,7 @@ public class ValidateTextField: UIView {
     
     // MARK: - Initializers -
     
-    public init(contentType: ContentType, rightView: UIView? = nil, leftView: UIView? = nil, options: ValidateConfiguration = [:]) {
+    public init(contentType: ContentType, rightView: UIView? = nil, leftView: UIView? = nil, options: ValidateConfiguration = [:], validate: Validate? = nil) {
         super.init(frame: .zero)
         
         self.leftView = leftView
@@ -152,16 +248,7 @@ public class ValidateTextField: UIView {
         
         configure(with: options)
         configure(with: contentType)
-
-        buildViewHierarchy()
-    }
-    
-    public init(contentType: ContentType, options: ValidateConfiguration = [:]) {
-        super.init(frame: .zero)
         
-        configure(with: options)
-        configure(with: contentType)
-
         buildViewHierarchy()
     }
     
@@ -249,7 +336,7 @@ public class ValidateTextField: UIView {
     private func configure(with options: ValidateConfiguration) {
         
         // View
-        backgroundColor = options[.backgroundColor] as? UIColor ?? .backgroundColor
+        containerBackgroundColor = options[.backgroundColor] as? UIColor ?? .backgroundColor
         spacing = options[.spacing] as? CGFloat ?? 8
         
         // Header
@@ -270,13 +357,18 @@ public class ValidateTextField: UIView {
         placeholderText = options[.placeholderText] as? String
         
         // Assistive
-        assistiveTextColor = options[.assistiveTextColor] as? UIColor ?? .placeholderColor
+        assistiveInFocusTextColor = options[.assistiveInFocusTextColor] as? UIColor ?? .headerInFocusColor
+        assistiveOffFocusTextColor = options[.assistiveOffFocusTextColor] as? UIColor ?? .placeholderColor
         assistiveTextFont = options[.assistiveTextFont] as? UIFont ?? UIFont.systemFont(ofSize: 14)
         assistiveText = options[.assistiveText] as? String
-
+        assistivePossition = options[.assistivePossition] as? AssistiveViewPosition ?? AssistiveViewPosition.none
+        assistiveCornerRadius = options[.assistiveCornerRadius] as? CGFloat ?? 0
+        assistiveBackgroundColor = options[.assistiveBackgroundColor] as? UIColor ?? .clear
+        
         // Error
         errorTextColor = options[.errorTextColor] as? UIColor ?? .errorColor
         errorTextFont = options[.errorTextFont] as? UIFont ?? UIFont.systemFont(ofSize: 14)
+        errorBackgroundColor = options[.errorTextColor] as? UIColor ?? .clear
         
         // Layer
         contentMargins = options[.contentMargins] as? UIEdgeInsets ?? UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
@@ -284,6 +376,7 @@ public class ValidateTextField: UIView {
         borderWidth = options[.contentMargins] as? CGFloat ?? 1
         borderOffFocusColor = options[.contentMargins] as? UIColor ?? .borderOffFocusColor
         borderInFocusColor = options[.contentMargins] as? UIColor ?? .borderInFocusColor
+        errorBorderColor = options[.errorBorderColor] as? UIColor ?? .borderOffFocusColor
         
     }
     
@@ -308,25 +401,62 @@ public class ValidateTextField: UIView {
     // MARK: - Factory Methods
     
     private func buildViewHierarchy() {
-        adjustParent()
+        // will allow for autolayout
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        makeContainerView()
         makeHorizontalContainerStackView()
         makeContainerStackView()
         makeHeaderLabel()
         makeTextField()
+        
+        switch assistivePossition {
+        case .none:
+            break
+        default:
+            makeAssistiveContainer()
+        }
+        
+        adjustUIAppearance()
     }
     
-    private func adjustParent() {
-        clipsToBounds = true
-        layer.cornerRadius = cornerRadius
-        layer.borderWidth = borderWidth
+    
+    // Containers
+    
+    private func makeContainerView() {
+        containerView = UIView()
+        
+        containerView.backgroundColor = containerBackgroundColor
+        containerView.clipsToBounds = true
+        containerView.layer.cornerRadius = cornerRadius
+        containerView.layer.borderWidth = borderWidth
         
         adjustContainerLayerColor()
         
-        translatesAutoresizingMaskIntoConstraints = false
-        heightAnchor.constraint(greaterThanOrEqualToConstant: 55).isActive = true
+        addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        setContentHuggingPriority(.init(1000), for: .vertical)
-        setContentCompressionResistancePriority(.init(1000), for: .vertical)
+        // if we have an outsideField possition AssistiveView, then we don't set either top or bottom anchors, based on vertical alligment of the enum value
+        switch assistivePossition {
+        case .outsideField(let vertical):
+            switch vertical {
+            case .above:
+                containerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            case .below:
+                containerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            }
+        default:
+            containerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            containerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        }
+        
+        containerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        
+        containerView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
+        
+        containerView.setContentHuggingPriority(.init(1000), for: .vertical)
+        containerView.setContentCompressionResistancePriority(.init(1000), for: .vertical)
     }
     
     private func makeHorizontalContainerStackView() {
@@ -338,17 +468,17 @@ public class ValidateTextField: UIView {
         horizontalContainerStackView.distribution = .fill
         
         // add view to hierarchy
-        addSubview(horizontalContainerStackView)
+        containerView.addSubview(horizontalContainerStackView)
         
         // add constraints
         horizontalContainerStackView.translatesAutoresizingMaskIntoConstraints = false
-        horizontalContainerStackView.topAnchor.constraint(equalTo: topAnchor,
+        horizontalContainerStackView.topAnchor.constraint(equalTo: containerView.topAnchor,
                                                           constant: contentMargins.top).isActive = true
-        horizontalContainerStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
+        horizontalContainerStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor,
                                                               constant: contentMargins.left).isActive = true
-        horizontalContainerStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
+        horizontalContainerStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor,
                                                              constant: -contentMargins.bottom).isActive = true
-        horizontalContainerStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
+        horizontalContainerStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,
                                                                constant: -contentMargins.right).isActive = true
     }
     
@@ -368,6 +498,8 @@ public class ValidateTextField: UIView {
         verticalFieldsContainerStackView.setContentCompressionResistancePriority(.init(1000), for: .vertical)
     }
     
+    // Header
+    
     private func makeHeaderLabel() {
         headerLabel = UILabel()
         headerLabel.isHidden = (text ?? "").isEmpty
@@ -384,9 +516,7 @@ public class ValidateTextField: UIView {
         headerLabel.setContentCompressionResistancePriority(.init(1000), for: .vertical)
     }
     
-    private func configureHeaderColors() {
-        headerLabel.textColor = state == .active ? headerInFocusTextColor : headerOffFocusTextColor
-    }
+    // TextField
     
     private func makeTextField() {
         textField = UITextField()
@@ -399,6 +529,22 @@ public class ValidateTextField: UIView {
         textField.textColor = textColor
         textField.tintColor = textFieldTintColor
         textField.text = text
+        
+        if #available(iOS 12.0, *) {
+            switch textField.textContentType {
+            case .password?, .newPassword?:
+                textField.isSecureTextEntry = true
+            default:
+                textField.isSecureTextEntry = false
+            }
+        } else {
+            switch textField.textContentType {
+            case .password?:
+                textField.isSecureTextEntry = true
+            default:
+                textField.isSecureTextEntry = false
+            }
+        }
         
         textField.attributedPlaceholder = NSAttributedString(string: placeholderText,
                                                              attributes: [
@@ -413,24 +559,160 @@ public class ValidateTextField: UIView {
         textField.setContentCompressionResistancePriority(.init(1000), for: .vertical)
     }
     
-    private func makeAssistiveLabel() {
+    // Assistive/Error
+    
+    private func makeAssistiveContainer() {
+        assistiveContainer = UIView()
+        assistiveContainer?.backgroundColor = .clear
+        assistiveContainer?.clipsToBounds = true
+        assistiveContainer?.layer.cornerRadius = assistiveCornerRadius
+        
+        switch assistivePossition {
+        case .outsideField(let vertical):
+            
+            addSubview(assistiveContainer!)
+            assistiveContainer!.translatesAutoresizingMaskIntoConstraints = false
+            
+            switch vertical {
+            case .above:
+                assistiveContainer!.topAnchor.constraint(equalTo: topAnchor).isActive = true
+                assistiveContainer!.bottomAnchor.constraint(equalTo: horizontalContainerStackView.topAnchor,
+                                                            constant: -4).isActive = true
+            case .below:
+                assistiveContainer!.topAnchor.constraint(equalTo: horizontalContainerStackView.bottomAnchor,
+                                                         constant: 4).isActive = true
+                assistiveContainer!.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            }
+            
+            assistiveContainer!.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                                         constant: contentMargins.left).isActive = true
+            assistiveContainer!.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                                          constant: -contentMargins.right).isActive = true
+            
+            makeAssistiveLabel(insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
+        case .insideField:
+            // insert the assistive container as the last view in the stackview
+            if rightView != nil {
+                horizontalContainerStackView.insertArrangedSubview(assistiveContainer!,
+                                                                   at: horizontalContainerStackView.arrangedSubviews.count - 1)
+            } else {
+                horizontalContainerStackView.addArrangedSubview(assistiveContainer!)
+            }
+            makeAssistiveLabel(insets: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))
+        default:
+            break
+        }
+    }
+    
+    private func makeAssistiveLabel(insets: UIEdgeInsets) {
+        assistiveLabel = UILabel()
+        
+        assistiveLabel!.numberOfLines = 0
+        
+        assistiveContainer!.addSubview(assistiveLabel!)
+        
+        assistiveLabel!.translatesAutoresizingMaskIntoConstraints = false
+        assistiveLabel!.leadingAnchor.constraint(equalTo: assistiveContainer!.leadingAnchor, constant: insets.left).isActive = true
+        assistiveLabel!.trailingAnchor.constraint(equalTo: assistiveContainer!.trailingAnchor, constant: -insets.right).isActive = true
+        
+        switch assistivePossition {
+        case .insideField(let vertical):
+            
+            assistiveLabel!.textAlignment = .center
+
+            switch vertical {
+            case .top:
+                assistiveLabel!.topAnchor.constraint(equalTo: assistiveContainer!.topAnchor).isActive = true
+            case .center:
+                assistiveLabel!.centerYAnchor.constraint(equalTo: assistiveContainer!.centerYAnchor).isActive = true
+            case .bottom:
+                assistiveLabel!.topAnchor.constraint(equalTo: assistiveContainer!.bottomAnchor).isActive = true
+            }
+        default:
+            assistiveLabel!.topAnchor.constraint(equalTo: assistiveContainer!.topAnchor, constant: insets.top).isActive = true
+            assistiveLabel!.bottomAnchor.constraint(equalTo: assistiveContainer!.bottomAnchor, constant: -insets.bottom).isActive = true
+        }
         
     }
     
     // MARK: - Adjust UI
     
-    private func adjustUI() {
+    private func adjustUIAppearance() {
         adjustContainerLayerColor()
+        adjustHeaderColors()
+        adjustAssitiveAppearance()
+    }
+    
+    private func adjustHeaderColors() {
+        switch state {
+        case .active:
+            headerLabel.textColor = headerInFocusTextColor
+        case .normal:
+            headerLabel.textColor = headerOffFocusTextColor
+        case .error:
+            headerLabel.textColor = .errorColor
+        }
+    }
+    
+    private func adjustAssitiveAppearance() {
+        guard assistiveLabel != nil,
+            assistiveContainer != nil else { return }
+        
+        switch state {
+        case .active:
+            assistiveLabel!.textColor = assistiveInFocusTextColor
+            assistiveLabel!.font = assistiveTextFont
+            assistiveLabel!.text = assistiveText
+            assistiveContainer!.backgroundColor = assistiveBackgroundColor
+        case .normal:
+            assistiveLabel!.textColor = assistiveOffFocusTextColor
+            assistiveLabel!.font = assistiveTextFont
+            assistiveLabel!.text = assistiveText
+            assistiveContainer!.backgroundColor = assistiveBackgroundColor
+        case .error:
+            assistiveLabel!.textColor = errorTextColor
+            assistiveLabel!.font = errorTextFont
+            assistiveLabel!.text = errorText
+            assistiveContainer!.backgroundColor = errorBackgroundColor
+        }
+        
+        assistiveLabel!.sizeToFit()
     }
     
     private func adjustContainerLayerColor() {
+        func setColor() {
+            switch state {
+            case .active:
+                containerView.layer.borderColor = borderInFocusColor.cgColor
+            case .normal:
+                containerView.layer.borderColor = borderOffFocusColor.cgColor
+            case .error:
+                containerView.layer.borderColor = errorBorderColor.cgColor
+            }
+        }
+        
         if #available(iOS 13.0, *) {
             traitCollection.performAsCurrent {
-                layer.borderColor = state == .active ? borderInFocusColor.cgColor : borderOffFocusColor.cgColor
+                setColor()
             }
         } else {
-            layer.borderColor = state == .active ? borderInFocusColor.cgColor : borderOffFocusColor.cgColor
+            setColor()
         }
+        
+    }
+    
+    // MARK: - Validate
+    
+    private func validate(text: String?) {
+        validate?(textField.text, { result in
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                self.errorText = error
+                self.state = .error
+            }
+        })
     }
     
 }
@@ -452,7 +734,7 @@ extension ValidateTextField: UITextFieldDelegate {
     }
     
     public func textFieldDidEndEditing(_ textField: UITextField) {
-        state = .normal
+        state = state != .error ? .normal : state
         
         headerLabel.isHidden = textField.text?.isEmpty ?? true
         
@@ -465,15 +747,4 @@ extension ValidateTextField: UITextFieldDelegate {
         return true
     }
     
-    private func validate(text: String?) {
-        validate?(textField.text, { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                self.errorText = error
-                self.state = .error
-            }
-        })
-    }
 }

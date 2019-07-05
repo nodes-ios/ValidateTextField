@@ -51,13 +51,14 @@ class ViewController: UIViewController {
     
     private func makePasswordInputField() {
         let inputPassword = ValidateTextField(contentType: .password,
-                                              options: [:])
+                                              options: [.assistivePossition: ValidateTextField.AssistiveViewPosition.insideField(verticalAllignment: .center)])
         
         inputPassword.didEndEditing = { textField, text in
             textField.endEditing(true)
         }
         
         let button = UIButton()
+        button.setTitle("Bla", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalToConstant: 40).isActive = true
         inputPassword.rightView = button
@@ -67,15 +68,18 @@ class ViewController: UIViewController {
         inputPassword.validate = { text, resultCallback in
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                resultCallback(.success)
+                if text == "1234" {
+                    resultCallback(.success)
+                } else {
+                    resultCallback(.failure("Some password error"))
+                }
             }
 
         }
     }
     
-    func validatePassword(_ text: String) -> String {
-        
-        return ""
+    func validatePassword(_ text: String) -> String? {
+            return "Some password error"
     }
 }
 
